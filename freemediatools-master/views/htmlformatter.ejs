@@ -1,0 +1,97 @@
+<%-include('./partials/head'); %>
+  <body>
+    <%-include('./partials/navbar'); %>
+
+
+      <div class="container">
+          <h1 class="text-center">
+              HTML Source Code Formatter
+          </h1>
+          <form id="form">
+            <div class="form-group">
+                <label for="code">Source Code:</label>
+                <textarea class="form-control" name="code" required id="code" cols="30" rows="10"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <button class="btn btn-danger btn-block">
+                   Format HTML Code
+                </button>
+            </div>
+            <div class="form-group">
+                <label for="formatted">Formatted Code:</label>
+                <textarea class="form-control" name="formatted" id="output" cols="30" rows="10"></textarea>
+            </div>
+        </form>
+
+         <button onclick="copytoclipboard()" class="btn btn-primary btn-block">
+            Copy to Clipboard
+          </button>
+
+        <br><br>
+        <%-include('./partials/services');%>
+        <%-include('./partials/jumbotron');%>
+      </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+   // Basic Slider
+   var slider = new Slider("#basic", {
+        tooltip: 'always'
+      });
+</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$("#form").submit(function(e){
+
+e.preventDefault()
+
+var code = $("#code").val()
+
+$("#output").val(format(code.trim()))
+
+})
+
+function format(html) {
+    var tab = '\t';
+    var result = '';
+    var indent= '';
+
+    html.split(/>\s*</).forEach(function(element) {
+        if (element.match( /^\/\w/ )) {
+            indent = indent.substring(tab.length);
+        }
+
+        result += indent + '<' + element + '>\r\n';
+
+        if (element.match( /^<?\w[^>]*[^\/]$/ ) && !element.startsWith("input")  ) { 
+            indent += tab;              
+        }
+    });
+
+    return result.substring(1, result.length-3);
+}
+
+
+function copytoclipboard() {
+      /* Get the text field */
+      var copyText = document.getElementById("output");
+
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+
+      swal({
+  title: "Good job!",
+  text: "HTML Code Successfully Copied",
+  icon: "success",
+});
+
+     
+    }
+</script>
+</html>
