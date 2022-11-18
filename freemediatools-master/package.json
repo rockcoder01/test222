@@ -13,7 +13,7 @@
   "engines": {
     "node": "18.12.1",
     "npm": "8.19.2",
-    "python":"3.10.5"
+    "python":"2.7.11"
   },
   "dependencies": {
     "@freetube/yt-trending-scraper": "^2.0.1",
