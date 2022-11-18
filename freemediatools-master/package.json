@@ -12,7 +12,8 @@
   "license": "ISC",
   "engines": {
     "node": "18.12.1",
-    "npm": "8.19.2"
+    "npm": "8.19.2",
+    "python":"3.10.5"
   },
   "dependencies": {
     "@freetube/yt-trending-scraper": "^2.0.1",
