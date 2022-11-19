@@ -88,18 +88,18 @@ const AlexaRank = require('alexa-rank-nodejs').default;
 
 var isValidDomain = require('is-valid-domain');
 
-const translate = require('@vitalets/google-translate-api');
+// const translate = require('@vitalets/google-translate-api');
 
 const IP2Region = require('ip2region');
 const query = new IP2Region();
 const res = query.search('120.24.78.68');
 
-translate(res.country, {to: 'en'}).then(response => {
-    console.log(response);
+// translate(res.country, {to: 'en'}).then(response => {
+//     console.log(response);
     
-}).catch(err => {
-    console.error(err);
-});
+// }).catch(err => {
+//     console.error(err);
+// });
 
 const pdfMerge = require('easy-pdf-merge');
 
@@ -147,7 +147,7 @@ app.use(bodyParser.json());
      var ip_info = get_ip(req);
      console.log(ip_info);
      ipdata = ip_info
-     // { clientIp: '127.0.0.1', clientIpRoutable: false }
+    //  { clientIp: '127.0.0.1', clientIpRoutable: false }
      next();
  });
 
@@ -3870,7 +3870,7 @@ var exceltojsonlatestupload = multer({
 });
 
 app.post('/exceltojson',exceltojsonlatestupload.single('file'),(req,res) => {
-
+console.log('checked here ...', req.body)
 var outputpath = Date.now() + "output.json"
 
 if(req.file){
@@ -3879,7 +3879,7 @@ var jsonarray = []
 
 
 exec(`any-json convert ${req.file.path} ${outputpath}`,(err,stdout,stderr) => {
-
+console.log('error', error, req.file.path, outputpath)
 if(err){
 fs.unlinkSync(req.file.path)
 fs.unlinkSync(outputpath)
